@@ -10,6 +10,7 @@ class RYLR896{
 
     private:
         HardwareSerial* loraSerial;
+        String WriteToLoRa(String message);
 
 };
 
