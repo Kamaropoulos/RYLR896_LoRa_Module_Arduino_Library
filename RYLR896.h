@@ -7,11 +7,12 @@ class RYLR896{
     public:
         RYLR896(HardwareSerial* loraSerial, int baudRate);
         bool Test();
+        bool Reset();
 
     private:
         HardwareSerial* loraSerial;
-        String WriteToLoRa(String message);
-
+        void WriteToLoRa(String message);
+        String ReadFromLoRa();
 };
 
 #endif

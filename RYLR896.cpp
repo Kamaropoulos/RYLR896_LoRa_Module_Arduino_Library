@@ -8,17 +8,27 @@ RYLR896::RYLR896(HardwareSerial* loraSerial, int baudRate){
 }
 
 bool RYLR896::Test(){
-    String repsonse = this->WriteToLoRa("AT");
-    if (repsonse == "+OK") {
+    this->WriteToLoRa("AT");
+    String response = ReadFromLoRa();
+    if (response == "+OK") {
         return true;
     } else return false;
 }
 
-String RYLR896::WriteToLoRa(String message){
+bool RYLR896::Reset(){
+    this->WriteToLoRa("AT+RESET");
+    String response1 = ReadFromLoRa(); // +RESET
+    this->loraSerial->readStringUntil(0); // Consume '0' when module resets
+    if (response1 == "+RESET") {
+        String response2 = ReadFromLoRa(); // ! and +READY
+        if (response2 == "+READY"){
+            return true;
+        } else return false;
+        return true;
+    } else return false;
+}
 
-    // Send message to serial
-    this->loraSerial->println(message);
-
+String RYLR896::ReadFromLoRa(){
     // Block until we get a response
     while(!this->loraSerial->available()){}
 
@@ -29,9 +39,13 @@ String RYLR896::WriteToLoRa(String message){
 
     // Read response from serial until \r
     String response = this->loraSerial->readStringUntil('\r');
-    // Consume last \n
-    this->loraSerial->readStringUntil('\n');
+    // Consume last \n or 234
+    char c = this->loraSerial->read();
 
     return response;
+}
 
+void RYLR896::WriteToLoRa(String message){
+    // Send message to serial
+    this->loraSerial->println(message);
 }
