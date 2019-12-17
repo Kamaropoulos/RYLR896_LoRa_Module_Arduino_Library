@@ -5,8 +5,12 @@
 
 class RYLR896{
     public:
-        RYLR896(int baudRate);
+        RYLR896(HardwareSerial* loraSerial, int baudRate);
         bool Test();
+
+    private:
+        HardwareSerial* loraSerial;
+
 };
 
 #endif

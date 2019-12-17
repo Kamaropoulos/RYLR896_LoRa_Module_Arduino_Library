@@ -1,17 +1,18 @@
 #include "Arduino.h"
 #include "RYLR896.h"
 
-RYLR896::RYLR896(int baudRate){
+RYLR896::RYLR896(HardwareSerial* loraSerial, int baudRate){
     // Initialize Serial
-    Serial.begin(baudRate);
+    this->loraSerial = loraSerial;
+    this->loraSerial->begin(baudRate);
 }
 
 bool RYLR896::Test(){
-    Serial.println("AT");
-    while(!Serial.available()){}
-    String msg = Serial.readStringUntil('\r');
+    this->loraSerial->println("AT");
+    while(!this->loraSerial->available()){}
+    String msg = this->loraSerial->readStringUntil('\r');
     // Consume last \n
-    Serial.readStringUntil('\n');
+    this->loraSerial->readStringUntil('\n');
     if (msg == "+OK") {
         return true;
     } else return false;
