@@ -8,6 +8,8 @@ class RYLR896{
         RYLR896(HardwareSerial* loraSerial, int baudRate);
         bool Test();
         bool Reset();
+        bool SleepMode();
+        bool NormalMode();
 
     private:
         HardwareSerial* loraSerial;
