@@ -10,6 +10,7 @@ class RYLR896{
         bool Reset();
         bool SleepMode();
         bool NormalMode();
+        // int GetMode();
 
     private:
         HardwareSerial* loraSerial;

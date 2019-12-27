@@ -28,6 +28,18 @@ bool RYLR896::Reset(){
     } else return false;
 }
 
+
+// TODO: Getting mode as well as changing mode seems a bit buggy for now,
+//       leaving this here for a later time.
+
+// int RYLR896::GetMode(){
+//     this->WriteToLoRa("AT+MODE?");
+//     String response = ReadFromLoRa();
+//     if (response.substring(0, 5) == "+MODE="){
+//         return (response[6] == '0') ? 0 : 1;
+//     } else return -1;
+// }
+
 bool RYLR896::SleepMode(){
     this->WriteToLoRa("AT+MODE=1");
     String response = ReadFromLoRa();
