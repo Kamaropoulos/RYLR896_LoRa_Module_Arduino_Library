@@ -11,6 +11,9 @@ class RYLR896{
         bool SleepMode();
         bool NormalMode();
         // int GetMode();
+        bool SetRFParams(int spreadingFactor, int bandwidth, int codingRate, int programmedPreamble);
+        bool SetRFParamsLessThan3KM();
+        bool SetRFParamsMoreThan3KM();
 
     private:
         HardwareSerial* loraSerial;

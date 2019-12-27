@@ -65,6 +65,22 @@ bool RYLR896::NormalMode(){
     } else return false;
 }
 
+bool RYLR896::SetRFParams(int spreadingFactor, int bandwidth, int codingRate, int programmedPreamble){
+    this->WriteToLoRa("AT+PARAMETER="+String(spreadingFactor)+","+String(bandwidth)+","+String(codingRate)+","+String(programmedPreamble));
+    String response = ReadFromLoRa();
+    if (response == "+OK") {
+        return true;
+    } else return false;
+}
+
+bool RYLR896::SetRFParamsLessThan3KM(){
+    return this->SetRFParams(10,7,1,7);
+}
+
+bool RYLR896::SetRFParamsMoreThan3KM(){
+    return this->SetRFParams(12,3,1,7);
+}
+
 String RYLR896::ReadFromLoRa(){
     // Block until we get a response
     while(!this->loraSerial->available()){}
