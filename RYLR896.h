@@ -14,6 +14,7 @@ class RYLR896{
         bool SetRFParams(int spreadingFactor, int bandwidth, int codingRate, int programmedPreamble);
         bool SetRFParamsLessThan3KM();
         bool SetRFParamsMoreThan3KM();
+        bool SetAddress(word address);
 
     private:
         HardwareSerial* loraSerial;
