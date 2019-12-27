@@ -15,6 +15,7 @@ class RYLR896{
         bool SetRFParamsLessThan3KM();
         bool SetRFParamsMoreThan3KM();
         bool SetAddress(word address);
+        bool SetNetworkID(uint8_t networkID);
 
     private:
         HardwareSerial* loraSerial;
