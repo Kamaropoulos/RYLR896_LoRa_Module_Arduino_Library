@@ -16,6 +16,7 @@ class RYLR896{
         HardwareSerial* loraSerial;
         void WriteToLoRa(String message);
         String ReadFromLoRa();
+        bool SetIPR(int IPR);
 };
 
 #endif

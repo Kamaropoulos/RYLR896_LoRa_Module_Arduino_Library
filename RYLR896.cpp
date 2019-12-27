@@ -5,6 +5,15 @@ RYLR896::RYLR896(HardwareSerial* loraSerial, int baudRate){
     // Initialize Serial
     this->loraSerial = loraSerial;
     this->loraSerial->begin(baudRate);
+    this->SetIPR(baudRate);
+}
+
+bool RYLR896::SetIPR(int IPR){
+    this->WriteToLoRa("AT+IPR="+String(IPR));
+    String response = ReadFromLoRa();
+    if (response == "+OK") {
+        return true;
+    } else return false;
 }
 
 bool RYLR896::Test(){
