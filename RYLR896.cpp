@@ -89,6 +89,14 @@ bool RYLR896::SetAddress(word address){
     } else return false;
 }
 
+word RYLR896::GetAddress(){
+    this->WriteToLoRa("AT+ADDRESS?");
+    String response = ReadFromLoRa();
+    if (response.startsWith("+ADDRESS=")) {
+        return (word)response.substring(response.indexOf("=")+1, response.length()).toInt();
+    }
+}
+
 bool RYLR896::SetNetworkID(uint8_t networkID){
     this->WriteToLoRa("AT+NETWORKID="+String(networkID));
     String response = ReadFromLoRa();
