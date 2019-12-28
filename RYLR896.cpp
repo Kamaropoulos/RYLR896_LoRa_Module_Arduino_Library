@@ -37,6 +37,37 @@ bool RYLR896::Reset(){
     } else return false;
 }
 
+bool RYLR896::Send(String message){
+    this->WriteToLoRa("AT+SEND=0,"+String(message.length())+","+message);
+    String response = ReadFromLoRa();
+    if (response == "+OK") {
+        return true;
+    } else return false;
+}
+
+bool RYLR896::Send(String message, word address){
+    this->WriteToLoRa("AT+SEND="+String(address)+","+String(message.length())+","+message);
+    String response = ReadFromLoRa();
+    if (response == "+OK") {
+        return true;
+    } else return false;
+}
+
+String RYLR896::Receive(){
+    String loraData = ReadFromLoRa();
+    if (loraData.startsWith("+RCV=")){
+        loraData = loraData.substring(loraData.indexOf("=")+1, loraData.length());
+        word fromAddress = (word)loraData.substring(0, loraData.indexOf(",")).toInt();
+        loraData = loraData.substring(loraData.indexOf(",")+1, loraData.length());
+        int length = loraData.substring(0, loraData.indexOf(",")).toInt();
+        loraData = loraData.substring(loraData.indexOf(",")+1, loraData.length());
+        String message = loraData.substring(0, loraData.indexOf(","));
+        loraData = loraData.substring(loraData.indexOf(",")+1, loraData.length());
+        // TODO: Parse RSSI and SNR
+        // TODO: Return structure including all parsed data
+        return message;
+    }
+}
 
 // TODO: Getting mode as well as changing mode seems a bit buggy for now,
 //       leaving this here for a later time.

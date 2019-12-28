@@ -8,6 +8,9 @@ class RYLR896{
         RYLR896(HardwareSerial* loraSerial, int baudRate);
         bool Test();
         bool Reset();
+        bool Send(String message);
+        bool Send(String message, word address);
+        String Receive();
         bool SleepMode();
         bool NormalMode();
         // int GetMode();
