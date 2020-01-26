@@ -21,6 +21,7 @@ class RYLR896{
         word GetAddress();
         bool SetNetworkID(uint8_t networkID);
         bool SetAESPassword(String password);
+        String GetVersion();
     private:
         HardwareSerial* loraSerial;
         void WriteToLoRa(String message);

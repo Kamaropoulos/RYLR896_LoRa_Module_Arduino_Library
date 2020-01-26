@@ -145,6 +145,12 @@ bool RYLR896::SetAESPassword(String password){
     } else return false;
 }
 
+String RYLR896::GetVersion(){
+    this->WriteToLoRa("AT+VER?");
+    String response = ReadFromLoRa();
+    return response.substring(response.indexOf("=")+1, response.length());
+}
+
 String RYLR896::ReadFromLoRa(){
     // Block until we get a response
     while(!this->loraSerial->available()){}
