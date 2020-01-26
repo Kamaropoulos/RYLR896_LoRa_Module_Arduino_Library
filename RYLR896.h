@@ -20,7 +20,7 @@ class RYLR896{
         bool SetAddress(word address);
         word GetAddress();
         bool SetNetworkID(uint8_t networkID);
-
+        bool SetAESPassword(String password);
     private:
         HardwareSerial* loraSerial;
         void WriteToLoRa(String message);
